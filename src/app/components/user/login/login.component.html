@@ -1,0 +1,33 @@
+<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+    <div class="card card-signin my-5 animated fadeInLeft">
+        <div class="card-body">
+            <h5 class="card-title text-center">Ingresar</h5>
+            <form class="form-signin" (ngSubmit)="onIngresoUser(forma)" #forma="ngForm">
+
+
+                <div class="animated fadeIn" *ngIf="loginError">
+                    <div class="alert alert-danger" role="alert">
+                        Usuario o Contraseña Invalido
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div *ngIf="email.errors?.required && email.touched" class="text-danger"> El correo es Requerido</div>
+                    <input type="email" class="form-control rounded-pill" placeholder="Email" required name="email" required minlength="5" maxlength="30" [(ngModel)]="usuario.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #email="ngModel">
+                </div>
+
+
+                <div class="form-group">
+                    <div *ngIf="password.errors?.required && password.touched" class="text-danger">Contraseña es Requerida</div>
+                    <input type="password" class="form-control rounded-pill" name="password" placeholder="Contraseña" required maxlength="30" [(ngModel)]="usuario.password" #password="ngModel">
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" [disabled]="forma.invalid" [ngClass]="{'btn-secondary text-dark': forma.invalid}">Ingresar</button>
+                <button type="button" class="btn btn-secondary btn-block animated shake btn-crearCuenta text-uppercase" [routerLink]="['/user/register']">Crear Cuenta</button>
+                <hr class="my-4">
+                <button class="btn btn-lg btn-google btn-block text-uppercase animated fadeInDown" type="submit"><i class="fab fa-google mr-2"></i> Ingresa con Google</button>
+                <button class="btn btn-lg btn-facebook btn-block text-uppercase animated fadeInDown" type="submit"><i class="fab fa-facebook-f mr-2"></i> Ingresa con Facebook</button>
+            </form>
+        </div>
+    </div>
+</div>

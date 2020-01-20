@@ -1,0 +1,30 @@
+container-img {
+    width: 100%;
+}
+
+.col-3 .container-img img {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.precio {
+    overflow: hidden;
+}
+
+.contenedor-oferta {
+    widows: 30%;
+    overflow: hidden;
+}
+
+.img-oferta {
+    margin-right: 10%;
+    animation-delay: 1s;
+    width: 30%;
+    float: right;
+    position: relative;
+}
+
+.img-oferta:hover {
+    transform: scale(1.1);
+}

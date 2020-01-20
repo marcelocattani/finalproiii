@@ -1,0 +1,31 @@
+<div class="container m-5 animated fadeIn" *ngIf="yaCargo">
+    <div class="row bg-dark">
+        <div class="col-3">
+            <div class="container-img">
+                <img [src]="libro.portada" alt="">
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="col-12 mt-1 text-light text-center">
+                <h2>{{libro.titulo}}</h2>
+            </div>
+            <div class="col-12 descripcion">
+                <p class="text-justify text-light">{{libro.descripcion}}</p>
+                <p class="font-weight-bold text-light">IDIOMA : {{libro.idioma | uppercase}}</p>
+            </div>
+            <div class="col-12 precio mb-2 ">
+                <div>
+                    <h3> <span class="badge badge-info float-left">$ {{libro.precio}}</span></h3>
+                    <h3> <a href="{{libro.link_amazon}}" target="_blank"><span class="badge badge-success link_compra float-left ml-5" >Comprar Ahora</span></a></h3>
+                </div>
+
+                <div class="contenedor-oferta">
+                    <ng-container *ngIf="libro.oferta" class="float-right">
+                        <img src="./assets/img/oferta.png" alt="" class="img-oferta animated bounceInLeft">
+                    </ng-container>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

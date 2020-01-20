@@ -1,0 +1,31 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="alert alert-danger animated fadeIn" role="alert" *ngIf="error">
+    Ups! Ha ocurrido un Error!
+</div>
+
+<div class="card-columns">
+    <div class="card animated zoomIn" *ngFor="let bk of books">
+        <div class="card-body text-center">
+
+            <a routerLink="/book/{{bk.id}}">
+                <img class="img-fluid" src="{{bk.portada}}" alt="{{bk.titulo}}">
+            </a>
+
+            <h4 routerLink="/book/{{bk.id}}" class="card-title">{{bk.titulo | truncador : '40'}}</h4>
+            <p class="card-text">
+                {{bk.descripcion | truncador: '120' }}
+            </p>
+            <div class="container-precio-idioma">
+                <p class="badge badge-info float-left">
+                    {{bk.precio}}$
+                </p>
+                <p class="badge badge-info float-right">
+                    {{bk.idioma}}
+                </p>
+            </div>
+            <a href="{{bk.link_amazon}}" class="btn btn-block btn-primary " target="_blank">COMPRAR</a>
+        </div>
+    </div>
+
+</div>

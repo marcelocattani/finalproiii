@@ -1,0 +1,44 @@
+<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+    <div class="card card-register my-5 animated fadeInRight">
+        <div class="card-body">
+            <h5 class="card-title text-center">Registrarse</h5>
+
+            <form class="form-signin " (ngSubmit)="onRegisterUser(forma)" #forma="ngForm">
+
+                <div class="form-group" class="text-danger">
+                    <div *ngIf="email.errors?.required && email.touched"> El correo es Requerido</div>
+                    <div *ngIf="email.errors?.minlength && email.touched">Por lo menos {{email.errors.minlength.requiredLength}} caracteres</div>
+                    <div *ngIf="email.errors?.pattern">No tiene un formato valido como correo</div>
+                    <input type="email" class="form-control rounded-pill" placeholder="Email" required name="email" required minlength="5" maxlength="30" [(ngModel)]="usuario.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #email="ngModel">
+                </div>
+                <br>
+
+                <div class="form-group" [ngClass]="{'text-danger': password.errors?.required || password.errors?.minlength}">
+                    <div *ngIf="password.errors?.required && password.touched">Este campo es Requerido</div>
+                    <div *ngIf="password.errors?.minlength && password.touched">Debe contener 6 caracteres minimo </div>
+
+                    <input type="password" class="form-control rounded-pill" placeholder="Tu contraseña" required name="password" required minlength="6" maxlength="12" [(ngModel)]="usuario.password" #password="ngModel">
+                </div>
+                <br>
+
+                <div *ngIf="foto.errors?.required && foto.touched" class="text-danger">La imagen es Requerida</div>
+                <div class="input-group">
+                    <input class="form-control" type="file" required name="foto" accept=".png, .jpg" (change)="onSelectFile($event)" required ngModel #foto="ngModel">
+                </div> <br>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" required ngModel name="acepta">
+                    <label class="custom-control-label" for="customCheck1">He leído y acepto, los términos y condiciones</label>
+                </div>
+
+                <hr class="my-4">
+                <button class="btn btn-lg btn-primary btn-block text-uppercase rounded-pill" type="submit" [disabled]="forma.invalid" [ngClass]="{'btn-secondary text-dark': forma.invalid}">Registrarse</button>
+                <button type="button" class="btn btn-secondary btn-block rounded-pill" [routerLink]="['/user/login']">Ya tienes Cuenta?</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<pre>
+    {{porcentaje | async }}
+</pre>

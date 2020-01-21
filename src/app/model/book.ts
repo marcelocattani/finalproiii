@@ -1,5 +1,6 @@
 export interface bookInterface {
     titulo?: string;
+    autor?: string; 
     idioma?: string;
     descripcion?: string;
     portada?: string;
@@ -7,5 +8,5 @@ export interface bookInterface {
     link_amazon?: string;
     oferta?: boolean;
     id?: string;
-    userUId?: string;
+    uid?: string;
 }

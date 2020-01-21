@@ -3,3 +3,11 @@ h3 {
     -moz-box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
     box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
 }
+
+tr td img {
+    max-width: 50px;
+}
+
+td.precio {
+    min-width: 100px;
+}

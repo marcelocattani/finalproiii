@@ -37,18 +37,26 @@
     <ng-template #siLogueado>
 
         <div class="dropdown mr-1">
+
             <button type="button" class="btn btn-secondary dropdown imgUsuario" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                <ng-container *ngIf="loadingPhoto; else elseTemplate">
+                <ng-container *ngIf="loadingPhoto || !usuarioCargado; else elseTemplate">
                     <i class="fas fa-spinner fa-spin fa-2x"></i>
                 </ng-container>
                 <ng-template #elseTemplate>
-                    <img src="{{imgUser }}"  alt="" width="50px">                    
+                    <img src="{{user.imagen}}"  alt="" width="50px">                    
                 </ng-template>
                 
             </button>
-            <div class="dropdown-menu dropdown-menu-right animated fadeInRight" aria-labelledby="dropdownMenuOffset">
-                <a class="dropdown-item pointer " [routerLink]="['/user/profile']">Mi Perfil</a>
+            <div class="dropdown-menu dropdown-menu-right animated fadeInRight" aria-labelledby="dropdownMenuOffset" *ngIf="usuarioCargado">
+                <a class="dropdown-item pointer " [routerLink]="['/user/profile']" routerLinkActive="disabled">Mi Perfil</a>
                 <a class="dropdown-item pointer ">Favoritos</a>
+                <hr>
+                <div *ngIf="user.rol == 'admin'">
+                    <a class="dropdown-item pointer">Administrar Usuarios</a>
+                </div>
+                <div *ngIf="user.rol == 'editor' || user.rol == 'admin' || user.rol == 'collaborator'">
+                    <a class="dropdown-item pointer" [routerLink]="['/admin/books']" routerLinkActive="disabled">Administrar Libros</a>
+                </div>
                 <a class="dropdown-item pointer " (click)="salir()">Cerrar Session </a>
             </div>
         </div>

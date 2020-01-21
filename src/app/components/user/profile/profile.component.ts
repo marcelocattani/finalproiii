@@ -12,6 +12,7 @@ import { AutentificacionService } from '../../../services/autentificacion.servic
 export class ProfileComponent implements OnInit {
 
   public user  : userInterface; 
+  public cargado : boolean = false;
 
   constructor( private dataBaseService : DataBaseService,
               private autentificacion : AutentificacionService) { }
@@ -24,7 +25,8 @@ export class ProfileComponent implements OnInit {
     this.autentificacion.getAuth().subscribe( dataUser => {
       if(dataUser) { 
         this.dataBaseService.getOneUser(dataUser.uid).subscribe(infoUser => {
-          this.user = infoUser; 
+          this.user = infoUser;
+          this.cargado = true;  
         })
       }
     });

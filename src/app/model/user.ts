@@ -1,11 +1,7 @@
-export interface userInterface {
-    id?: string
+export interface userInterface {    
     nombre ?: string;
-    password ?: string; 
     email ?: string; 
-    apellido ?: string; 
     imagen ?: string; 
     uid ?: string; 
     rol?: string; 
-
 }

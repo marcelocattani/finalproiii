@@ -1,3 +1,9 @@
+.container {
+    -webkit-box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
+    box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
+}
+
 container-img {
     width: 100%;
 }
@@ -26,5 +32,20 @@ container-img {
 }
 
 .img-oferta:hover {
+    transform: scale(1.1);
+}
+
+.precio {
+    margin-bottom: 30px;
+}
+
+.link-compra {
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 1);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 1);
+    transition: all .5s;
+}
+
+.link-compra:hover {
     transform: scale(1.1);
 }

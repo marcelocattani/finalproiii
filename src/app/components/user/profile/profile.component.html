@@ -1,15 +1,35 @@
-<div class="container bg-dark">
-    <div class="row">
-        <div class="col-3">
-            <img src="{{user.imagen}}" alt="" style="width: 100%;">
+<app-loading *ngIf="!cargado"></app-loading>
+<div class="container bg-dark m-5 text-light bold animated zoomInDown rounded-pill" *ngIf="cargado">
+    <div class="row ">
+        <div class="col-3 imagen-usuario">
+            <img src="{{user.imagen}}" alt="" style="width: 100%;" class="rounded-circle">
         </div>
-        <div class="col-9">
 
+        <div class="col-9">
+            <div class="row">
+                <div class="col-12 user-head">
+                    <div>
+                        <h2>{{user.nombre | uppercase }} </h2>
+                    </div>
+                    <div [ngSwitch]="user.rol" class="float-left">
+
+                        <h2 *ngSwitchCase="'client'"><span class="badge badge-success ml-2">Cliente</span></h2>
+                        <h2 *ngSwitchCase="'admin'"><span class="badge badge-success ml-2">Administrador</span></h2>
+                        <h2 *ngSwitchCase="'collaborator'"><span class="badge badge-success ml-2">Colaborador</span></h2>
+                        <h2 *ngSwitchCase="'editor'"><span class="badge badge-success ml-2">Editor</span></h2>
+
+
+                        <h2 *ngSwitchDefault>Indefinido</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 font-weight-bold ml-5">
+                    <p>Correo Electronico : {{user.email}}</p>
+                </div>
+                <div class="col-6"></div>
+            </div>
         </div>
+
     </div>
 </div>
-
-
-<pre>
-    {{user | json}}
-</pre>

@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row m-5">
+        <div class="col-12">
+            <div class="animated flipInX">
+                <h3 class="text-center font-weight-bold bg-warning">ADMINISTRACIÓN DE LIBROS</h3>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-success ml-3 float-right mb-3 animated fadeIn" data-toggle="modal" data-target="#modalBook" (click)="dataBase.selectedBook = { id : null}; accion = false ">
+        <i class="fas fa-plus fa-2x ml-4 mr-4"></i>
+    </button>
+    <div class="contenedor-tabla ">
+        <table class="table animated zoomIn">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Portada</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Idioma</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Oferta</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let libro of libros; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td><img src="{{libro.portada}}" alt="" onError="this.src='assets/img/noImage.png'"></td>
+                    <td>{{libro.titulo}}</td>
+                    <td>{{libro.autor}}</td>
+                    <td>{{libro.idioma}}</td>
+                    <td class="precio">$ {{libro.precio}}</td>
+                    <td>
+                        <ng-container *ngIf="libro.oferta == 1; else elseTemplate">
+                            <span class="badge badge-pill badge-success">En Oferta</span>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <span class="badge badge-pill badge-secondary">Precio Regular</span>
+                        </ng-template>
+                    </td>
+                    <td class="d-flex">
+                        <div *ngIf=" (user.rol == 'editor' && user.uid == libro.uid) || user.rol == 'admin' || user.rol == 'collaborator' ">
+                            <button type="button" class="btn btn-warning float-left" data-toggle="modal" data-target="#modalBook" (click)="onPreUpdate(libro)">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                        </div>
+                        <div *ngIf="(user.rol == 'editor' && user.uid == libro.uid) || user.rol == 'admin'">
+                            <button type="button" class="btn btn-danger ml-3 float-left" (click)="onDelete(libro.id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<app-modal></app-modal>

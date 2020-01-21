@@ -49,6 +49,37 @@ export class AutentificacionService {
     } )
   }
   
+  public loginWithGoogle(){
+    return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+    .then( credentials => {
+      if ( credentials.additionalUserInfo.isNewUser) {
+        const user : userInterface = {
+          nombre : credentials.user.displayName,          
+          email : credentials.user.email,
+          imagen : credentials.user.photoURL,
+          rol : "client",
+          uid: credentials.user.uid
+        }
+        this.dataBaseService.addUser(user);        
+      }
+    })
+  }
+  
+  public loginWithFacebook(){
+    return this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider())
+    .then( credentials => {
+      if ( credentials.additionalUserInfo.isNewUser) {
+        const user : userInterface = {
+          nombre : credentials.user.displayName,          
+          email : credentials.user.email,
+          imagen : credentials.user.photoURL,
+          rol : "client",
+          uid: credentials.user.uid
+        }
+        this.dataBaseService.addUser(user);        
+      }
+    })
+  }
   public logout(){
     this.afAuth.auth.signOut().then (()=> this.router.navigate(['/user/login']));
   }
@@ -71,14 +102,16 @@ export class AutentificacionService {
     return this.afAuth.authState.pipe( map (auth => auth));
   } 
 
-  public getImageUser() : Observable<string> {
-    return Observable.create( (observer) => {
+  public getCurrentUser() : Observable<userInterface>{
+    return Observable.create( observer => {
       this.getAuth().subscribe(data => {
-        if ( data) {
-          observer.next(data.photoURL);
+        if (data) {
+          this.dataBaseService.getOneUser(data.uid).subscribe(info => {
+            observer.next(info);
+          }, err => observer.error(err))
         }
-      });
-    });
+      })
+    })
   }
 
   private addUserToFirebase(credenciales : auth.UserCredential, photo : string) : void{
@@ -87,13 +120,12 @@ export class AutentificacionService {
 
       const usuarioActual : userInterface = { 
       nombre : credenciales.user.email.split('@',1)[0], //Deduce el nombre a partir de la primer porcion de email 
-      apellido : "Sin definir", 
       email : credenciales.user.email,
       imagen : photo,
       uid : credenciales.user.uid, 
       rol : "client"
       }
-      this.dataBaseService.putUser(usuarioActual);
+      this.dataBaseService.addUser(usuarioActual);
     }
 
   }

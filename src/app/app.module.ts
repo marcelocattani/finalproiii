@@ -27,6 +27,8 @@ import { TruncadorPipe } from './pipes/truncador.pipe';
 //Forms Modules
 import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './components/shared/loading/loading.component';
+import { AdminBookComponent } from './components/admin/admin-book/admin-book.component';
+import { ModalComponent } from './components/admin/modal/modal.component';
 
 
 
@@ -44,7 +46,9 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     ProfileComponent,
     BookComponent,
     TruncadorPipe,
-    LoadingComponent    
+    LoadingComponent,
+    AdminBookComponent,
+    ModalComponent    
   ],
   imports: [
     BrowserModule,

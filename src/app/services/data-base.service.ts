@@ -16,15 +16,15 @@ export class DataBaseService {
   // private booksCollection : AngularFirestoreCollection<bookInterface>;
   // private userDocument : AngularFirestoreDocument<userInterface>;  
   // private bookDoc : AngularFirestoreDocument<bookInterface>; 
- 
+   public selectedBook : bookInterface = {id : null }; 
 
   constructor(private dataBase : AngularFirestore) {
-
   }
+
 
   public getAllBooks() : Observable<bookInterface[]> {
 
-    const booksCollection = this.dataBase.collection<bookInterface>('libros');
+    const booksCollection = this.dataBase.collection<bookInterface>('books');
     return booksCollection.snapshotChanges()
     .pipe ( map ( data => data.map ( action => {
       const info = action.payload.doc.data() as bookInterface;
@@ -36,7 +36,7 @@ export class DataBaseService {
   
   public getOneBook(id: string) : Observable<bookInterface> {   
     
-    const bookDoc = this.dataBase.doc<bookInterface>('libros/'+id);
+    const bookDoc = this.dataBase.doc<bookInterface>('books/'+id);
     return bookDoc.snapshotChanges().pipe( map (action => {
       if (action.payload.exists){
         const data = action.payload.data() as bookInterface;
@@ -53,8 +53,7 @@ export class DataBaseService {
     const userDoc = this.dataBase.doc<userInterface>('users/'+id);
     return userDoc.snapshotChanges().pipe( map (action => {
       if (action.payload.exists){
-        const data = action.payload.data() as userInterface;
-        data.id = action.payload.id;
+        const data = action.payload.data() as userInterface;        
         return data;
       } else {
         return null;
@@ -64,7 +63,7 @@ export class DataBaseService {
  
 
   public getOffers() : Observable<bookInterface[]> {
-    const booksCollection = this.dataBase.collection<bookInterface>('libros',ref => ref.where("oferta", "==", true));
+    const booksCollection = this.dataBase.collection<bookInterface>('books',ref => ref.where("oferta", "==", "1"));
     return booksCollection.snapshotChanges()
     .pipe ( map ( data => data.map ( action => {
       const info = action.payload.doc.data() as bookInterface; 
@@ -73,9 +72,24 @@ export class DataBaseService {
     })))
   }
 
-  public putUser( usuario : userInterface) : void {
+  public addUser( usuario : userInterface) : void {
     const userDocument = this.dataBase.doc<userInterface>('users/'+usuario.uid);
     userDocument.set(usuario,{ merge : true });
+  }
+
+  public addBook(book: bookInterface) {
+    const booksCollection = this.dataBase.collection<bookInterface>('books');
+    booksCollection.add(book);
+  }
+
+  public updateBook(book : bookInterface){   
+    const docBook = this.dataBase.doc<bookInterface>('books/'+book.id);
+    docBook.update(book);
+  }
+
+  public deleteBook(idBook : string){
+    const docBook = this.dataBase.doc<bookInterface>('books/'+idBook);
+    docBook.delete();
   }
 
  

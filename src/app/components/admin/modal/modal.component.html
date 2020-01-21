@@ -1,0 +1,72 @@
+<div class="modal fade" id="modalBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <form class="modal-content" (ngSubmit)="onSaveBook(forma)" #forma="ngForm">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold" id="exampleModalScrollableTitle">
+                    {{this.database.selectedBook.id ? 'Actualizar Libro' : 'Nuevo Libro' }}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" [(ngModel)]="this.database.selectedBook.id" name="id">
+                <input type="hidden" [(ngModel)]="userId" name="uid">
+                <div class="form-group">
+                    <div class="form-label">Titulo</div>
+                    <input type="text" class="form-control" name="titulo" [(ngModel)]="this.database.selectedBook.titulo" required #titulo="ngModel" [ngClass]="{'is-invalid': titulo.touched && titulo.errors?.required}">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label class="form-label">Idioma</label>
+                        <select name="idioma" class="form-control" [(ngModel)]="this.database.selectedBook.idioma" #idioma="ngModel" [ngClass]="{'is-invalid': idioma.touched && idioma.errors?.required}" required>
+                            <option value="ingles">Ingles</option>
+                            <option value="español">Español</option>
+                            <option value="portugues">Portugues</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-label">Precio</label>
+                        <input type="text" class="form-control" name="precio" [(ngModel)]="this.database.selectedBook.precio" required #precio="ngModel" [ngClass]="{'is-invalid': precio.touched && precio.errors?.required}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="autor" class="form-label">Autor</label>
+                        <input type="text" class="form-control" name="autor" [(ngModel)]="this.database.selectedBook.autor" required #autor="ngModel" [ngClass]="{'is-invalid': autor.touched && autor.errors?.required}">
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="oferta" class="form-label">Oferta</label>
+                        <select name="oferta" class="form-control" [(ngModel)]="this.database.selectedBook.oferta" required #oferta="ngModel" [ngClass]="{'is-invalid': oferta.touched && oferta.errors?.required}">
+                            <option value="1">Si</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="portada" class="form-label">
+                            Portada
+                        </label>
+                        <input type="text" class="form-control" name="portada" required [(ngModel)]="this.database.selectedBook.portada" #portada="ngModel" [ngClass]="{'is-invalid': portada.touched && portada.errors?.required}">
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="link">Link</label>
+                        <input type="text" class="form-control" name="link" required [(ngModel)]="this.database.selectedBook.link" #link="ngModel" [ngClass]="{'is-invalid': link.touched && link.errors?.required}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <label for="descripcion" class="form-label">Descripcion</label>
+                        <textarea name="descripcion" rows="3" class="form-control" cols="30" #descripcion="ngModel" [ngClass]="{'is-invalid': descripcion.touched && descripcion.errors?.required}" [(ngModel)]="this.database.selectedBook.descripcion" required></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" #btnClose>Cancelar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="forma.invalid" [ngClass]="{'btn-secondary text-dark': forma.invalid}">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

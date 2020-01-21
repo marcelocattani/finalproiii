@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AutentificacionService } from '../../../services/autentificacion.service';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   public loginError : boolean = false; 
 
-  constructor(private autenfificacionService : AutentificacionService) { }
+  constructor(private autenfificacionService : AutentificacionService,
+              private router : Router) { }
 
 
   ngOnInit() {    
@@ -28,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   public onIngresoUser(forma : NgForm){
      this.autenfificacionService.loginWithEmailAndPassword(this.usuario['email'], this.usuario['password'])
-     .then(credential => console.log("logueado satisfactoriamente"))
+     .then()
      .catch(err => {
        this.usuario = {email : null, password : null};
        this.loginError = true; 
@@ -38,5 +40,14 @@ export class LoginComponent implements OnInit {
      });
   }
   
+  onRegisterGoogle() {
+    this.autenfificacionService.loginWithGoogle()
+    .then( () => this.router.navigate(['/home']));  
+  }
+
+  onRegisterFacebook(){
+    this.autenfificacionService.loginWithFacebook()
+    .then(() => this.router.navigate(['/home']));  
+  }
 
 }

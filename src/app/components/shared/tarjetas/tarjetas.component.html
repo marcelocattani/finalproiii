@@ -9,7 +9,7 @@
         <div class="card-body text-center">
 
             <a routerLink="/book/{{bk.id}}">
-                <img class="img-fluid" src="{{bk.portada}}" alt="{{bk.titulo}}">
+                <img class="img-fluid" src="{{bk.portada}}" alt="{{bk.titulo}}" onError="this.src='assets/img/noImage.png'">
             </a>
 
             <h4 routerLink="/book/{{bk.id}}" class="card-title">{{bk.titulo | truncador : '40'}}</h4>

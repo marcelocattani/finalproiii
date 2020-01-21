@@ -1,0 +1,27 @@
+.container {
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 1);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 1);
+}
+
+.user-head {
+    overflow: hidden;
+    padding: 20px;
+}
+
+.user-head div {
+    margin-left: 25px;
+    float: left;
+}
+
+.imagen-usuario {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.imagen-usuario img {
+    -webkit-box-shadow: 10px 10px 26px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 10px 10px 26px 0px rgba(0, 0, 0, 1);
+    box-shadow: 10px 10px 26px 0px rgba(0, 0, 0, 1);
+    border: 4px solid white;
+}

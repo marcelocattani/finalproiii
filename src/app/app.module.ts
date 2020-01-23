@@ -29,6 +29,7 @@ import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { AdminBookComponent } from './components/admin/admin-book/admin-book.component';
 import { ModalComponent } from './components/admin/modal/modal.component';
+import { IsLoggedGuard } from './guards/is-logged.guard';
 
 
 
@@ -59,7 +60,7 @@ import { ModalComponent } from './components/admin/modal/modal.component';
     AngularFireAuthModule,
     FormsModule
   ],
-  providers: [],
+  providers: [IsLoggedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

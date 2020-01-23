@@ -23,7 +23,7 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="bg-light">
                 <tr *ngFor="let libro of libros; let i = index">
                     <th scope="row">{{i+1}}</th>
                     <td><img src="{{libro.portada}}" alt="" onError="this.src='assets/img/noImage.png'"></td>

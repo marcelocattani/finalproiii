@@ -10,44 +10,36 @@
                     Home
                 </a>
             </li>
-            <li class="nav-item" *ngIf="logueado">
+            <li class="nav-item" *ngIf="logueado && !this.autentificacionService.registrandose">
                 <a class="nav-link" [routerLink]="[ '/offers' ]" routerLinkActive="active">
                     Ofertas
                 </a>
             </li>
         </ul>
     </div>
+    <!-- //Barra de Busquedas -->
     <form class="form-inline my-2 my-lg-0 mr-5">
         <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        <button class="btn btn-outline-success my-2 my-sm-0 d-none d-sm-none d-md-block" type="submit"><i class="fas fa-search"></i></button>
     </form>
 
-    <ng-container *ngIf="logueado; then siLogueado; else noLogueado"></ng-container>
-    <ng-template #noLogueado>
-
-        <div class="navbar-nav mr-auto">
-            <div>
-                <a class="nav-link" title="Ingresar" [routerLink]="[ '/user/login' ]" routerLinkActive="active">
-                    <h3><i class="fas fa-sign-in-alt"></i></h3>
-                </a>
-            </div>
-        </div>
-
-    </ng-template>
+    <ng-container *ngIf="logueado && !this.autentificacionService.registrandose; then siLogueado; else noLogueado"></ng-container>
     <ng-template #siLogueado>
 
         <div class="dropdown mr-1">
 
-            <button type="button" class="btn btn-secondary dropdown imgUsuario" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                <ng-container *ngIf="loadingPhoto || !usuarioCargado; else elseTemplate">
-                    <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <button type="button" class="btn btn-secondary dropdown imgUsuario" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+               
+                <ng-container *ngIf="infoCargada; else cargando">
+                    <img src="{{user.imagen}}" alt="" width="50px">
                 </ng-container>
-                <ng-template #elseTemplate>
-                    <img src="{{user.imagen}}"  alt="" width="50px">                    
-                </ng-template>
+                <ng-template #cargando>
+                    <i class="fas fa-spinner fa-2x fa-spin"></i>
+                </ng-template>             
+                
                 
             </button>
-            <div class="dropdown-menu dropdown-menu-right animated fadeInRight" aria-labelledby="dropdownMenuOffset" *ngIf="usuarioCargado">
+            <div class="dropdown-menu dropdown-menu-right animated fadeInRight" aria-labelledby="dropdownMenuButton" *ngIf="infoCargada">
                 <a class="dropdown-item pointer " [routerLink]="['/user/profile']" routerLinkActive="disabled">Mi Perfil</a>
                 <a class="dropdown-item pointer ">Favoritos</a>
                 <hr>
@@ -62,9 +54,20 @@
         </div>
 
     </ng-template>
+    <ng-template #noLogueado>
+
+        <div class="navbar-nav mr-auto">
+            <div>
+                <a class="nav-link" title="Ingresar" [routerLink]="[ '/user/login' ]" routerLinkActive="active">
+                    <h3><i class="fas fa-sign-in-alt"></i></h3>
+                </a>
+            </div>
+        </div>
+
+    </ng-template>
+
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
 </nav>

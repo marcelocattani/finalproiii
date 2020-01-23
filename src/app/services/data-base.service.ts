@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { bookInterface } from '../model/book';
 import { userInterface } from '../model/user';
@@ -60,7 +60,8 @@ export class DataBaseService {
       }
     }));
    }
- 
+
+   
 
   public getOffers() : Observable<bookInterface[]> {
     const booksCollection = this.dataBase.collection<bookInterface>('books',ref => ref.where("oferta", "==", "1"));

@@ -1,11 +1,17 @@
+<div class="contenedor-progress animated fadeIn">
+    <div class="progress bg-green" *ngIf="cargandoFoto">
+        <div class="progress-bar" role="progressbar" [style.width]="(porcentaje | async) +'%'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{porcentaje | async | number : '.2-2'}}%</div>
+    </div>
+</div>
 <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-    <div class="card card-register my-5 animated fadeInRight">
+    <div class="card card-register my-5 animated fadeInRight" [ngClass]="{'fadeOutDownBig': cargandoFoto}">
         <div class="card-body">
             <h5 class="card-title text-center">Registrarse</h5>
 
             <form class="form-signin " (ngSubmit)="onRegisterUser(forma)" #forma="ngForm">
 
                 <div class="form-group" class="text-danger">
+                    <div *ngIf="emailExist" class="alert alert-danger" role="alert"> Este correo ya esta registrado</div>
                     <div *ngIf="email.errors?.required && email.touched"> El correo es Requerido</div>
                     <div *ngIf="email.errors?.minlength && email.touched">Por lo menos {{email.errors.minlength.requiredLength}} caracteres</div>
                     <div *ngIf="email.errors?.pattern">No tiene un formato valido como correo</div>
@@ -31,14 +37,11 @@
                 </div>
 
                 <hr class="my-4">
-                <button class="btn btn-lg btn-primary btn-block text-uppercase rounded-pill" type="submit" [disabled]="forma.invalid" [ngClass]="{'btn-secondary text-dark': forma.invalid}">Registrarse</button>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase rounded-pill btn-secondary text-dark" type="button" disabled *ngIf="forma.invalid">Registrarse</button>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase rounded-pill" type="submit" *ngIf="forma.valid">Registrarse</button>
                 <button type="button" class="btn btn-secondary btn-block rounded-pill" [routerLink]="['/user/login']">Ya tienes Cuenta?</button>
 
             </form>
         </div>
     </div>
 </div>
-
-<pre>
-    {{porcentaje | async }}
-</pre>

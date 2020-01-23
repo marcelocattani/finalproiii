@@ -26,7 +26,8 @@ export class ModalComponent implements OnInit{
 
   public onSaveBook(forma : NgForm){ 
     
-    if ( this.userRol == "admin" && forma.value.id != null) { //Como administraodor no se le quita el poder a un  editor o colaborador
+    //Como administraodor no se le quita el poder a un  editor o colaborador
+    if ( (this.userRol == "admin" || this.userRol == "collaborator") && forma.value.id != null) { 
       forma.value.uid = this.database.selectedBook.uid; 
     }    
 

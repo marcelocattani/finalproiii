@@ -1,0 +1,5 @@
+.fondo {
+    background-image: url('/assets/img/bg-texture.png');
+    min-height: 100vh;
+    padding-bottom: 20vh;
+}

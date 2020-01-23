@@ -1,3 +1,11 @@
+.contenedor-progress {
+    margin-top: 20vh;
+}
+
+.card.card-register {
+    animation-duration: 1s;
+}
+
 .card-register {
     border: 0;
     border-radius: 1rem;

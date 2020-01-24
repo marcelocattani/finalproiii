@@ -1,8 +1,8 @@
-<div class="container m-5 animated fadeIn" *ngIf="yaCargo">
+<div class="container m-5 animated fadeIn" *ngIf="yaCargo && existe">
     <div class="row bg-dark">
         <div class="col-3">
             <div class="container-img">
-                <img [src]="libro.portada" alt="">
+                <img [src]="libro.portada" alt="" onError="this.src='assets/img/noImage.png'">
             </div>
         </div>
         <div class="col-9">
@@ -29,4 +29,8 @@
             </div>
         </div>
     </div>
+</div>
+<div class="alert alert-warning mt-5 animated fadeInDown" role="alert" *ngIf="!existe && yaCargo">
+    <img src="./assets/img/biblotecario.gif" alt="">
+    <span class="ml-5">Parece que el libro que buscas, no se encuentra en nuestra base de Datos.</span>
 </div>

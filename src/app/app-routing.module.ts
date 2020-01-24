@@ -10,13 +10,14 @@ import { BookComponent } from './components/book/book.component';
 import { AdminBookComponent } from './components/admin/admin-book/admin-book.component';
 import { IsLoggedGuard } from './guards/is-logged.guard';
 import { IsEditorOrCollaboratorGuard } from './guards/is-editor-or-collaborator.guard';
+import { NotLogguedGuard } from './guards/not-loggued.guard';
 
 
 const routes: Routes = [
   {path : 'home', component : HomeComponent},
   {path: 'offers', component: OfertasComponent, canActivate : [IsLoggedGuard]},
-  {path: 'user/login', component: LoginComponent},
-  {path: 'user/register', component: RegisterComponent},
+  {path: 'user/login', component: LoginComponent, canActivate :[NotLogguedGuard]},
+  {path: 'user/register', component: RegisterComponent, canActivate : [NotLogguedGuard]},
   {path: 'user/profile', component: ProfileComponent, canActivate : [IsLoggedGuard]},
   {path: 'admin/books', component: AdminBookComponent, canActivate : [IsLoggedGuard, IsEditorOrCollaboratorGuard]},
   {path: 'book/:id', component: BookComponent},

@@ -1,11 +1,20 @@
+<div class="container contenedor-titulo">
+    <div class="row m-5">
+        <div class="col-12">
+            <div class="">
+                <h3 class="text-center font-weight-bold bg-light animated flipInX" *ngIf="!this.palabraBuscada">{{this.clase == 'all' ? "TODOS NUESTROS PRODUCTOS" : "IMPRESIONANTES OFERTAS"}}</h3>
+                <h4 class="text-center bg-light animated flipInX font-weight-bold" *ngIf="this.palabraBuscada">RESULTADOS DE : {{this.palabraBuscada | uppercase}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
 <app-loading *ngIf="loading"></app-loading>
-
 <div class="alert alert-danger animated fadeIn" role="alert" *ngIf="error">
     Ups! Ha ocurrido un Error!
 </div>
 
 <div class="card-columns">
-    <div class="card animated zoomIn" *ngFor="let bk of books">
+    <div class="card " *ngFor="let bk of books | paginate: { itemsPerPage: 9, currentPage: pageActual }" [ngClass]="{'animated zoomIn': !this.palabraBuscada}">
         <div class="card-body text-center">
 
             <a routerLink="/book/{{bk.id}}">
@@ -27,5 +36,7 @@
             <a href="{{bk.link_amazon}}" class="btn btn-block btn-primary " target="_blank">COMPRAR</a>
         </div>
     </div>
-
+</div>
+<div class="seccion-paginacion text-center bg-light" *ngIf="!loading && this.books.length >= 9">
+    <pagination-controls (pageChange)="pageActual = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 </div>

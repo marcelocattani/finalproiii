@@ -20,17 +20,19 @@ import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { BookComponent } from './components/book/book.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
+import { ModalComponent } from './components/admin/modal/modal.component';
+import { AdminBookComponent } from './components/admin/admin-book/admin-book.component';
 
 //Pipes
 import { TruncadorPipe } from './pipes/truncador.pipe';
 
 //Forms Modules
 import { FormsModule } from '@angular/forms';
-import { LoadingComponent } from './components/shared/loading/loading.component';
-import { AdminBookComponent } from './components/admin/admin-book/admin-book.component';
-import { ModalComponent } from './components/admin/modal/modal.component';
 import { IsLoggedGuard } from './guards/is-logged.guard';
 
+//Paginacion 
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -58,7 +60,8 @@ import { IsLoggedGuard } from './guards/is-logged.guard';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [IsLoggedGuard],
   bootstrap: [AppComponent]

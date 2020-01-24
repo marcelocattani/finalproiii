@@ -1,3 +1,10 @@
+.contenedor-titulo h3,
+.contenedor-titulo h4 {
+    -webkit-box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
+    box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
+}
+
 .card {
     -webkit-box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
     -moz-box-shadow: 10px 10px 25px -8px rgba(0, 0, 0, 1);
@@ -47,7 +54,7 @@ div.container-precio-idioma {
 }
 
 .card {
-    animation-duration: 1.5s;
+    animation-duration: .7s;
 }
 
 img.img-fluid {

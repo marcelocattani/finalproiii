@@ -67,6 +67,8 @@ export class AutentificacionService {
         rol: "client",
         uid: credentials.user.uid
       };
+      
+
       this.dataBaseService.addUser(user);
     }
   }

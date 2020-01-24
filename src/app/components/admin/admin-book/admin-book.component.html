@@ -54,7 +54,7 @@
                 </tr>
             </tbody>
         </table>
-        <div class="seccion-paginacion text-center bg-light">
+        <div class="seccion-paginacion text-center bg-light" *ngIf="libros.length > 7">
             <pagination-controls (pageChange)="pageActual = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
         </div>
     </div>

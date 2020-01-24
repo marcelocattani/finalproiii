@@ -2,13 +2,9 @@ import { Injectable, EventEmitter } from "@angular/core";
 
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import {
-  AngularFirestore,
-  QueryFn
-} from "@angular/fire/firestore";
-import { bookInterface } from '../model/book';
-import { userInterface } from "../model/user";
-
+import { AngularFirestore, QueryFn } from "@angular/fire/firestore";
+import { bookInterface } from "../model/book";
+import { userInterface } from '../model/user';
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +14,7 @@ export class DataBaseService {
   // private userDocument : AngularFirestoreDocument<userInterface>;
   // private bookDoc : AngularFirestoreDocument<bookInterface>;
   public selectedBook: bookInterface = { id: null };
-  public terminoBuscado$ = new EventEmitter<string>(); 
+  public terminoBuscado$ = new EventEmitter<string>();
 
   constructor(private dataBase: AngularFirestore) {}
 
@@ -87,7 +83,6 @@ export class DataBaseService {
   //   console.log(palabraBuscada);
 
   //   const booksFinder = this.dataBase.collection<bookInterface>("books");
-    
 
   //   return booksFinder.snapshotChanges().pipe(
   //     map(data =>
@@ -99,9 +94,6 @@ export class DataBaseService {
   //     )
   //   );
   // }
-
-
-  public query: QueryFn;
 
   // ---------- U S U A R I O ----------------------
 
@@ -120,9 +112,28 @@ export class DataBaseService {
   }
 
   public addUser(usuario: userInterface): void {
+  
+    usuario.email == "marcelocattani96@gmail.com" ? usuario.rol = 'admin': null;
+
     const userDocument = this.dataBase.doc<userInterface>(
       "users/" + usuario.uid
     );
     userDocument.set(usuario, { merge: true });
+  }
+
+  public getAllUsers(): Observable<bookInterface[]> {
+    const userCollection = this.dataBase.collection<userInterface>("users");
+    return userCollection.snapshotChanges().pipe( map ( data => data.map(
+      action => {
+        const salida = action.payload.doc.data() as userInterface; 
+        salida.uid = action.payload.doc.id;
+        return salida; 
+      }
+    )));
+  }
+
+  public updateUser(usuario: userInterface): void {
+    const userDoc = this.dataBase.doc<userInterface>('users/'+usuario.uid);
+    userDoc.update(usuario);
   }
 }

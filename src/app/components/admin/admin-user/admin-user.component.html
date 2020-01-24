@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="row m-5">
+        <div class="col-12">
+            <div class="animated flipInX">
+                <h3 class="text-center font-weight-bold bg-warning">ADMINISTRACIÓN DE USUARIOS</h3>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Rol</th>
+                <th scope="col" class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="bg-light">
+            <tr *ngFor="let usuario of usuarios |  paginate: { itemsPerPage: 7, currentPage: pageActual }; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{usuario.nombre}}</td>
+                <td>{{usuario.email}}</td>
+
+                <!-- R O L E S -->
+                <ng-container *ngIf="editando && usuario.uid == usuarioEditando.uid; else datosFijos">
+                    <td>
+                        <select name="rolOpcion" id="" [(ngModel)]="usuarioEditando.rol" #rolNuevo (change)="onSelected(rolNuevo.value)">
+                            <option value="client">Cliente</option>
+                            <option value="collaborator">Colaborador</option>
+                            <option value="editor">Editor</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </td>
+                </ng-container>
+                <ng-template #datosFijos>
+                    <td>
+                        <span [ngSwitch]="usuario.rol">
+                        <p *ngSwitchCase="'client'">
+                            Cliente
+                        </p>
+                        <p *ngSwitchCase="'admin'">
+                            Administrador
+                        </p>
+                        <p *ngSwitchCase="'collaborator'">
+                            Colaborador
+                        </p>
+                        <p *ngSwitchCase="'editor'">
+                            Editor
+                        </p>
+                        <p *ngSwitchDefault>
+                            No encontrado
+                        </p>
+                        </span>
+
+                    </td>
+                </ng-template>
+
+
+
+
+                <!-- A C C I O N E S  -->
+                <td class="text-center">
+                    <ng-container *ngIf="editando && usuarioEditando.uid == usuario.uid; else botonEditar">
+                        <button class="btn btn-success" (click)="onSave()">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </ng-container>
+                    <ng-template #botonEditar>
+                        <button class="btn btn-warning" (click)="onEdit(usuario)">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="seccion-paginacion text-center bg-light" *ngIf="usuarios.length > 7">
+        <pagination-controls (pageChange)="pageActual = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+    </div>
+</div>

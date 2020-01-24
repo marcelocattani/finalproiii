@@ -11,7 +11,7 @@ import { AutentificacionService } from '../../../services/autentificacion.servic
 })
 export class AdminBookComponent implements OnInit {
   
-  public libros : bookInterface [];
+  public libros : bookInterface [] = [];
   public user :  userInterface = {};
   public pageActual : number = 1;
 

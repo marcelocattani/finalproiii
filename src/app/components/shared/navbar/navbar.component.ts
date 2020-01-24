@@ -30,10 +30,12 @@ export class NavbarComponent implements OnInit {
       this.infoCargada = false;
       if (data) {
         this.autentificacionService.getCurrentUser().subscribe(info => {
-          this.user = info;
-          setTimeout(() => {
+          if(info) {
+            this.user = info;
+          // setTimeout(() => {
             this.infoCargada = true;
-          }, 100);
+          // }, 300);
+          }
         });
       }
     });

@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   private selectedFile: any;
   public porcentaje: Observable<number>;
   public emailExist: boolean;
-  public cargandoFoto: boolean;
+  public cargandoFoto: boolean; // do : eliminar este valor para ocultar barra
 
   constructor(
     private autentificacionService: AutentificacionService,
@@ -50,6 +50,8 @@ export class RegisterComponent implements OnInit {
       .registerUser(this.usuario["email"], this.usuario["password"])
       .then(credential => {
         //El correo es valido
+        console.log("generate starting...");
+        
         this.cargandoFoto = true;
         this.subirFoto(credential);
       })
@@ -77,6 +79,7 @@ export class RegisterComponent implements OnInit {
             this.autentificacionService.getAuth().subscribe(current => {
               if (current) {
                 current.updateProfile({ photoURL: url });
+
                 this.saveUserFirestore(credential, url);
               }
             });

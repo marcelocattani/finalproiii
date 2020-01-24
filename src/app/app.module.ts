@@ -23,6 +23,7 @@ import { BookComponent } from './components/book/book.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
 import { ModalComponent } from './components/admin/modal/modal.component';
 import { AdminBookComponent } from './components/admin/admin-book/admin-book.component';
+import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
 
 //Pipes
 import { TruncadorPipe } from './pipes/truncador.pipe';
@@ -33,9 +34,6 @@ import { IsLoggedGuard } from './guards/is-logged.guard';
 
 //Paginacion 
 import { NgxPaginationModule } from 'ngx-pagination';
-
-
-
 
 @NgModule({
   declarations: [
@@ -51,7 +49,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     TruncadorPipe,
     LoadingComponent,
     AdminBookComponent,
-    ModalComponent    
+    ModalComponent,
+    AdminUserComponent        
   ],
   imports: [
     BrowserModule,

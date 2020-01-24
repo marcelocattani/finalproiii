@@ -4,3 +4,9 @@
 .pointer {
     cursor: pointer;
 }
+
+.sombra {
+    -webkit-box-shadow: 10px 10px 11px -1px rgba(0, 0, 0, 0.84);
+    -moz-box-shadow: 10px 10px 11px -1px rgba(0, 0, 0, 0.84);
+    box-shadow: 10px 10px 11px -1px rgba(0, 0, 0, 0.84);
+}

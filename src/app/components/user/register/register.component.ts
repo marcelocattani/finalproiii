@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AutentificacionService } from "../../../services/autentificacion.service";
 import { UploadService } from "../../../services/upload.service";
 import { TaskUploadPhoto } from "../../../model/photo";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
@@ -22,7 +22,7 @@ import { userInterface } from "../../../model/user";
     `
   ]
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   public usuario: Object = {
     email: null,
     password: null
@@ -31,6 +31,10 @@ export class RegisterComponent implements OnInit {
   public porcentaje: Observable<number>;
   public emailExist: boolean;
   public cargandoFoto: boolean; // do : eliminar este valor para ocultar barra
+
+  //Subscripciones a destruir
+  public urlS: Subscription;
+  public currentS: Subscription;
 
   constructor(
     private autentificacionService: AutentificacionService,
@@ -41,6 +45,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {}
 
+  ngOnDestroy() {
+    this.currentS.unsubscribe();
+    this.urlS.unsubscribe();
+  }
+
   public onSelectFile(event): void {
     this.selectedFile = event.target.files[0];
   }
@@ -50,8 +59,7 @@ export class RegisterComponent implements OnInit {
       .registerUser(this.usuario["email"], this.usuario["password"])
       .then(credential => {
         //El correo es valido
-        console.log("generate starting...");
-        
+
         this.cargandoFoto = true;
         this.subirFoto(credential);
       })
@@ -75,14 +83,17 @@ export class RegisterComponent implements OnInit {
       .snapshotChanges()
       .pipe(
         finalize(() => {
-          tareaDeSubida.ref.getDownloadURL().subscribe(url => {
-            this.autentificacionService.getAuth().subscribe(current => {
-              if (current) {
-                current.updateProfile({ photoURL: url });
-
-                this.saveUserFirestore(credential, url);
-              }
-            });
+          this.urlS = tareaDeSubida.ref.getDownloadURL().subscribe(url => {
+            if (url) {
+              this.currentS = this.autentificacionService
+                .getAuth()
+                .subscribe(current => {
+                  if (current) {
+                    current.updateProfile({ photoURL: url });
+                    this.saveUserFirestore(credential, url);
+                  }
+                });
+            }
           });
         })
       )
@@ -97,6 +108,7 @@ export class RegisterComponent implements OnInit {
       uid: user.user.uid,
       rol: "client"
     };
+
     this.dataBase.addUser(usuario);
     this.cargandoFoto = false;
     this.router.navigate(["/home"]);

@@ -18,7 +18,7 @@ import { IsAdminGuard } from './guards/is-admin.guard';
 const routes: Routes = [
   {path : 'home', component : HomeComponent},
   {path: 'offers', component: OfertasComponent, canActivate : [IsLoggedGuard]},
-  {path: 'user/login', component: LoginComponent, canActivate :  [NotLogguedGuard]},
+  {path: 'user/login', component: LoginComponent},
   {path: 'user/register', component: RegisterComponent},
   {path: 'user/profile', component: ProfileComponent, canActivate : [IsLoggedGuard]},
   {path: 'admin/books', component: AdminBookComponent, canActivate : [IsLoggedGuard, IsEditorOrCollaboratorGuard]},

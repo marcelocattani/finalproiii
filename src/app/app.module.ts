@@ -34,6 +34,7 @@ import { IsLoggedGuard } from './guards/is-logged.guard';
 
 //Paginacion 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FooterComponent } from './components/shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     LoadingComponent,
     AdminBookComponent,
     ModalComponent,
-    AdminUserComponent        
+    AdminUserComponent,
+    FooterComponent        
   ],
   imports: [
     BrowserModule,

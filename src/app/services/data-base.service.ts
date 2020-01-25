@@ -113,7 +113,7 @@ export class DataBaseService {
 
   public addUser(usuario: userInterface): void {
   
-    usuario.email == "marcelocattani96@gmail.com" ? usuario.rol = 'admin': null;
+    usuario.email == "cortezalberto@gmail.com" ? usuario.rol = 'admin': null;
 
     const userDocument = this.dataBase.doc<userInterface>(
       "users/" + usuario.uid

@@ -79,4 +79,12 @@
     <div class="seccion-paginacion text-center bg-light" *ngIf="usuarios.length > 7">
         <pagination-controls (pageChange)="pageActual = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
     </div>
+
+    <div class="alert alert-warning mt-5" role="alert">
+        A fines meramente didacticos y para poder enseñarle las funciones de administrador: <br> Cada nuevo usuario es registrado como un <b>Cliente</b> a excepcion de aquel que se registre, sin importar el medio, con el correo <b>cortezalberto@gmail.com</b>
+        <br><span>Cliente : permisos de solo lectura, no accede a paginas de administracion </span> <br>
+        <span>Editor : puede editar y eliminar solo libros que el haya creado</span> <br>
+        <span>Colaborador : puede editar todos los libros</span> <br>
+        <span>Administrador : acceso total a la administracion de libros y roles de usuarios</span>
+    </div>
 </div>
